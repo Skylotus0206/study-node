@@ -1,3 +1,4 @@
+// path 모듈 연습하기
 'use strict';
 import express from 'express';
 const router = express.Router();

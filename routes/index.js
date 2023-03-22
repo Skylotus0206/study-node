@@ -1,15 +1,11 @@
 'user strict';
 import express from 'express';
 import userRouter from './user.js';
+import upload from '../middlewares/multer.js';
 const router = express.Router();
 
 //@ router
 router.use('/user', userRouter);
-
-// router.use((req, res, next) => {
-//   console.log('모든 요청에 다 실행됩니다. ');
-//   next();
-// });
 
 router.get('/', (req, res, next) => {
   try {
@@ -29,6 +25,22 @@ router.post('/', (req, res, next) => {
     throw new Error('에러는 에러 처리 미들웨어로 갑니다.');
   }
 });
+
+// single middleware
+// router.post('/upload', upload.single('image'), (req, res) => {
+//   console.log(req.file, req.body);
+//   res.send('ok');
+// });
+
+// array middleware
+router.post(
+  '/upload',
+  upload.fields([{ name: 'image1' }, { name: 'image2' }]),
+  (req, res) => {
+    console.log(req.files, req.body);
+    res.send('ok');
+  }
+);
 
 router.use((err, req, res, next) => {
   console.error(err);

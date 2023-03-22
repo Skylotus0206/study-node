@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import dotenv from 'dotenv';
 
+
 import indexRouter from './routes/index.js';
 
 const app = express();
@@ -29,7 +30,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 // body-parser (create req.body): read request body to process JSON and formdata
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // create req.cookies: compare a signed cookie from browser to prove if the signature is provided from its server
 app.use(cookieParser(process.env.COOKIE_SECRET));
