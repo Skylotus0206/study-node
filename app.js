@@ -7,7 +7,6 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import dotenv from 'dotenv';
 
-
 import indexRouter from './routes/index.js';
 
 const app = express();
@@ -55,3 +54,11 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), (req, res) => {
   console.log('Server is connecting to port ' + app.get('port'));
 });
+
+// error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(404).send('Not Found');
+});
+
+
